@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{c91e2d42-8860-4047-8d4b-e7e705c31cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{7af45247-af79-4910-9044-07928e26718c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Objects">
+      <UniqueIdentifier>{66f9b19a-6eaa-49c5-8ec0-42b0c38b907b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Objects">
+      <UniqueIdentifier>{4444913c-6e40-46c8-8518-cb0b80ee68a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Lights">
+      <UniqueIdentifier>{15b18c42-94e8-445a-bdca-53266c3c3d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Lights">
+      <UniqueIdentifier>{e45fdb10-3436-4dd4-af35-abf8e5004305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Shaders">
+      <UniqueIdentifier>{02b12818-6835-497f-b45a-19b93a0984c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders">
+      <UniqueIdentifier>{c5d2c74d-ba95-4adc-ac9d-34f4e388a92e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Camera">
+      <UniqueIdentifier>{3fa6040b-afb4-4816-8e88-2922c5d9b57d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{7c94e202-dca3-4ee4-8710-456900c0b6ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\ParticleSystem">
+      <UniqueIdentifier>{be664754-dcb7-4cfc-aecd-87235590a374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\ParticleSystem\ParticleManagers">
+      <UniqueIdentifier>{659f1346-bae3-47d2-8efb-52aa1cc8ea8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\ParticleSystem\Particles">
+      <UniqueIdentifier>{be59a46e-d212-4f84-9d6a-db1d3d2a7eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ParticleSystem">
+      <UniqueIdentifier>{13f2f561-ee69-48cb-bed8-8f52b4cddfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ParticleSystem\ParticleManagers">
+      <UniqueIdentifier>{b77b55dc-749e-4685-944f-9164831c32d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ParticleSystem\Particles">
+      <UniqueIdentifier>{6369aaa5-c0ad-4c81-8596-be95d198f5a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DDSTextureLoader.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Headers\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Headers\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Headers\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Headers\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="PhongShader.h">
+      <Filter>Headers\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseShader.h">
+      <Filter>Headers\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurShader.h">
+      <Filter>Headers\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenObject.h">
+      <Filter>Headers\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeParticle.h">
+      <Filter>Headers\ParticleSystem\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Headers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeManager.h">
+      <Filter>Headers\ParticleSystem\ParticleManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Headers\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseParManager.h">
+      <Filter>Headers\ParticleSystem\ParticleManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseParticle.h">
+      <Filter>Headers\ParticleSystem\Particles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DDSTextureLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11 Framework.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Source\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="PhongShader.cpp">
+      <Filter>Source\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseShader.cpp">
+      <Filter>Source\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurShader.cpp">
+      <Filter>Source\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenObject.cpp">
+      <Filter>Source\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeParticle.cpp">
+      <Filter>Source\ParticleSystem\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeManager.cpp">
+      <Filter>Source\ParticleSystem\ParticleManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseParManager.cpp">
+      <Filter>Source\ParticleSystem\ParticleManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseParticle.cpp">
+      <Filter>Source\ParticleSystem\Particles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </CLInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX11 Framework.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BlurShader.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="PhongShader.fx">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
