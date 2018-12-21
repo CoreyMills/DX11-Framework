@@ -15,7 +15,7 @@ using namespace DirectX;
 
 enum DIRECTION
 {
-	MOVE_NONE,
+	MOVE_NONE = 0,
 	MOVE_FORWARD,
 	MOVE_BACKWARD,
 	MOVE_LEFT,
@@ -46,7 +46,7 @@ struct PhongCB
 	XMMATRIX mView;
 	XMMATRIX mProjection;
 
-	XMFLOAT4 ambientMaterial;
+	XMFLOAT4 ambientMtrl;
 	XMFLOAT4 ambientLight;
 
 	XMFLOAT4 diffuseMtrl;
@@ -113,7 +113,7 @@ struct Material
 	ID3D11BlendState* transparency;
 	ID3D11RasterizerState* rasterizerState;
 
-	ID3D11ShaderResourceView* textureShaderRV;
+	ID3D11ShaderResourceView* shaderRV;
 	ID3D11SamplerState* samplerLinear;
 
 	Material()
@@ -134,7 +134,7 @@ struct Material
 		this->transparency = transparency;
 		this->rasterizerState = rState;
 
-		this->textureShaderRV = textureRV;
+		this->shaderRV = textureRV;
 		this->samplerLinear = samplerLinear;
 	}
 };

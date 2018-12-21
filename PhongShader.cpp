@@ -65,7 +65,7 @@ HRESULT PhongShader::InitShadersAndInputLayout(ID3D11Device* device)
 
 	// Create the input layout
 	hr = device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
-		pVSBlob->GetBufferSize(), &_vertexLayout);
+		pVSBlob->GetBufferSize(), &_inputLayout);
 	pVSBlob->Release();
 
 	if (FAILED(hr))

@@ -8,7 +8,7 @@
 
 class ResourceManager
 {
-protected:
+private:
 	std::vector<GameObject*> _gameObjectArray;
 	std::vector<ID3D11ShaderResourceView*> _textureArray;
 	std::vector<Mesh*> _meshArray;
@@ -27,7 +27,6 @@ public:
 	~ResourceManager();
 
 	void Init();
-
 	void Cleanup();
 
 	/////////////////////////////////////////////////

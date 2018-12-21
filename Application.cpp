@@ -52,6 +52,8 @@ Application::Application()
 	_pRenderTargetView = nullptr;
 	_phongShader = nullptr;
 	_blurShader = nullptr;
+	_pVertexBufferNDCQuad = nullptr;
+	_pIndexBufferNDCQuad = nullptr;
 	_pVertexBufferQuad = nullptr;
 	_pIndexBufferQuad = nullptr;
 	_pVertexBufferSkybox = nullptr;
@@ -83,6 +85,7 @@ Application::Application()
 	_screenObject = nullptr;
 
 	_currentCamera = nullptr;
+	_tvCamera = nullptr;
 	_cameraFront = nullptr;
 	_cameraBack = nullptr;
 	_cameraSide = nullptr;
@@ -90,6 +93,7 @@ Application::Application()
 
 	_dLight = nullptr;
 	_sLight = nullptr;
+
 
 	_WindowHeight = 0;
 	_WindowWidth = 0;
@@ -866,7 +870,7 @@ HRESULT Application::InitGameObjects()
 
 	Material* ballMtrl = new Material(XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f), XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f),
 		XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f),
-		false, _pTransparency, _pSolid, _rManager->GetTextureAt(5), _pSamplerLinear);
+		false, _pTransparency, _pWireFrame, _rManager->GetTextureAt(5), _pSamplerLinear);
 	
 	Material* crateTransparentMtrl = new Material(XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f), 
 		XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f), 
@@ -893,8 +897,7 @@ HRESULT Application::InitGameObjects()
 	gameObject->SetName("cage");
 	gameObject->SetMesh(_rManager->GetMeshByName("cage"));
 	gameObject->SetMtrl(chainLinkMtrl);
-	gameObject->SetScale({ 2.0f, 2.0f, 2.0f });
-	gameObject->ApplyTransformation({ 0.0f, 0.0f, 0.0f });
+	gameObject->LoadStartingValues("StartingValues/Cage.txt");
 	_rManager->Add3DObject(gameObject);
 	
 	gameObject = new GameObject();
@@ -923,18 +926,14 @@ HRESULT Application::InitGameObjects()
 	gameObject->SetName("goal1");
 	gameObject->SetMesh(_rManager->GetMeshByName("goal"));
 	gameObject->SetMtrl(goalPostsMtrl);
-	gameObject->SetScale({ -1.0f, -1.0f, -1.0f });
-	gameObject->ApplyTransformation({ 0.0f, 6.0f, -30.0f });
-	gameObject->ApplyRotation({ XM_PI, (XM_PI / 2.0f), 0.0f });
+	gameObject->LoadStartingValues("StartingValues/Goal1.txt");
 	_rManager->Add3DObject(gameObject);
 
 	gameObject = new GameObject();
 	gameObject->SetName("goal2");
 	gameObject->SetMesh(_rManager->GetMeshByName("goal"));
 	gameObject->SetMtrl(goalPostsMtrl);
-	gameObject->SetScale({ -1.0f, -1.0f, -1.0f });
-	gameObject->ApplyTransformation({ 0.0f, 6.0f, 30.0f });
-	gameObject->ApplyRotation({ XM_PI, (XM_PI / 2.0f), 0.0f });
+	gameObject->LoadStartingValues("StartingValues/Goal2.txt");
 	_rManager->Add3DObject(gameObject);
 
 	gameObject = new GameObject();
@@ -1145,8 +1144,8 @@ HRESULT Application::InitDevice()
 
 	//Init PhongShader
 	_phongShader = new PhongShader(L"PhongShader.fx");
-	_phongShader->screenWidth = _WindowWidth;
-	_phongShader->screenHeight = _WindowHeight;
+	_phongShader->_screenWidth = _WindowWidth;
+	_phongShader->_screenHeight = _WindowHeight;
 
 	//max is 3. not sure why
 	_phongShader->_numOfTextures = 2;
@@ -1168,12 +1167,12 @@ HRESULT Application::InitDevice()
 		return hr;
 
 	_blurShader = new BlurShader(L"BlurShader.fx");
-	_blurShader->screenWidth = _WindowWidth;
-	_blurShader->screenHeight = _WindowHeight;
+	_blurShader->_screenWidth = _WindowWidth;
+	_blurShader->_screenHeight = _WindowHeight;
 
 	//max is 3. not sure why
 	_blurShader->_numOfTextures = 1;
-	_blurShader->InitShadersAndInputLayout(_pd3dDevice);
+	_blurShader->InitShaderAndInputLayout(_pd3dDevice);
 	_blurShader->InitRenderToTexture(_pd3dDevice);
 
 	// Create the blur constant buffer
@@ -1245,6 +1244,8 @@ void Application::Cleanup()
 	if (_pBlurCB) _pBlurCB->Release();
 
 	if (_pIndexBufferNDCQuad) _pIndexBufferNDCQuad->Release();
+	if (_pVertexBufferNDCQuad) _pVertexBufferNDCQuad->Release();
+	if (_pIndexBufferQuad) _pIndexBufferQuad->Release();
 	if (_pVertexBufferQuad) _pVertexBufferQuad->Release();
 	if (_pVertexBufferSkybox) _pVertexBufferSkybox->Release();
 	if (_pIndexBufferSkybox) _pIndexBufferSkybox->Release();
@@ -1278,6 +1279,7 @@ void Application::Cleanup()
 	if (_parSystem) _parSystem->Cleanup();
 
 	if(_currentCamera) _currentCamera->~Camera();
+	if (_tvCamera) _tvCamera->~Camera();
 	if (_cameraFront) _cameraFront->~Camera();
 	if (_cameraBack) _cameraBack->~Camera();
 	if (_cameraSide) _cameraSide->~Camera();
@@ -1390,7 +1392,7 @@ void Application::Draw()
 	if (_phongShader->IsShaderEnabled())
 	{
 		//Set the input layout
-		_pImmediateContext->IASetInputLayout(_phongShader->GetVLayout());
+		_pImmediateContext->IASetInputLayout(_phongShader->GetInputLayout());
 		_pImmediateContext->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 		ID3D11RenderTargetView* nullRTV = nullptr;
@@ -1401,7 +1403,6 @@ void Application::Draw()
 		if (_inSceneTV)
 		{
 			DrawSecondCamera();
-
 			_pImmediateContext->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 
@@ -1441,14 +1442,20 @@ void Application::Draw()
 			Material* temp = _rManager->GetObjectByName("tvQuad")->GetMtrl();
 			if (_switch)
 			{
-				temp->textureShaderRV = _phongShader->_shaderRVArray.at(0);
+				temp->shaderRV = _phongShader->_shaderRVArray.at(0);
 			}
 			else
 			{
-				temp->textureShaderRV = _phongShader->_shaderRVArray.at(1);
+				temp->shaderRV = _phongShader->_shaderRVArray.at(1);
 			}
 			_rManager->GetObjectByName("tvQuad")->SetMtrl(temp);
 			_switch = !_switch;
+		}
+		else
+		{
+			Material* temp = _rManager->GetObjectByName("tvQuad")->GetMtrl();
+			temp->shaderRV = _rManager->GetTextureAt(0);
+			_rManager->GetObjectByName("tvQuad")->SetMtrl(temp);
 		}
 
 		//rendering particles
@@ -1548,12 +1555,12 @@ void Application::DrawBlur(int currentLoop, ID3D11ShaderResourceView* shaderRV)
 		_pImmediateContext->ClearRenderTargetView(_pRenderTargetView, ClearColor);
 
 		// Set the input layout
-		_pImmediateContext->IASetInputLayout(_blurShader->GetVLayout());
+		_pImmediateContext->IASetInputLayout(_blurShader->GetInputLayout());
 
 		_pImmediateContext->PSSetShader(_blurShader->GetPixelShader(), nullptr, 0);
 		_pImmediateContext->VSSetShader(_blurShader->GetVertexShader(), nullptr, 0);
 
-		_screenObject->SetTextureRV(shaderRV);
+		_screenObject->SetShaderRV(shaderRV);
 		_screenObject->SetRState(_pSolid);
 		_screenObject->SetSamLinear(_pSamplerLinear);
 		_screenObject->Draw(_pImmediateContext, _pBlurCB, _blurShader->_cb);
@@ -1564,12 +1571,12 @@ void Application::DrawBlur(int currentLoop, ID3D11ShaderResourceView* shaderRV)
 		_pImmediateContext->ClearRenderTargetView(_blurShader->_renderTVArray[currentLoop], ClearColor);
 
 		// Set the input layout
-		_pImmediateContext->IASetInputLayout(_blurShader->GetVLayout());
+		_pImmediateContext->IASetInputLayout(_blurShader->GetInputLayout());
 
 		_pImmediateContext->PSSetShader(_blurShader->GetPixelShader(), nullptr, 0);
 		_pImmediateContext->VSSetShader(_blurShader->GetVertexShader(), nullptr, 0);
 
-		_screenObject->SetTextureRV(shaderRV);
+		_screenObject->SetShaderRV(shaderRV);
 		_screenObject->SetRState(_pSolid);
 		_screenObject->SetSamLinear(_pSamplerLinear);
 		_screenObject->Draw(_pImmediateContext, _pBlurCB, _blurShader->_cb);

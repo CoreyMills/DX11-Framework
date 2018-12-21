@@ -14,7 +14,7 @@ void ScreenObject::Init()
 {
 	_mesh = new Mesh();
 
-	_textureShaderRV = nullptr;
+	_shaderRV = nullptr;
 	_rasterizerState = nullptr;
 	_samplerLinear = nullptr;
 
@@ -26,8 +26,8 @@ void ScreenObject::Cleanup()
 	delete _mesh;
 	_mesh = nullptr;
 
-	delete _textureShaderRV;
-	_textureShaderRV = nullptr;
+	delete _shaderRV;
+	_shaderRV = nullptr;
 
 	delete _rasterizerState;
 	_rasterizerState = nullptr;
@@ -72,7 +72,7 @@ void ScreenObject::Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConst
 	deviceContext->VSSetConstantBuffers(0, 1, &pConstantBuffer);
 	deviceContext->PSSetConstantBuffers(0, 1, &pConstantBuffer);
 
-	deviceContext->PSSetShaderResources(0, 1, &_textureShaderRV);
+	deviceContext->PSSetShaderResources(0, 1, &_shaderRV);
 	deviceContext->PSSetSamplers(0, 1, &_samplerLinear);
 	deviceContext->DrawIndexed(_mesh->indexCount, 0, 0);
 }

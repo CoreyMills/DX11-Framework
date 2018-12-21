@@ -33,9 +33,6 @@
     <Filter Include="Source\Shaders">
       <UniqueIdentifier>{c5d2c74d-ba95-4adc-ac9d-34f4e388a92e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Camera">
-      <UniqueIdentifier>{3fa6040b-afb4-4816-8e88-2922c5d9b57d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Camera">
       <UniqueIdentifier>{7c94e202-dca3-4ee4-8710-456900c0b6ee}</UniqueIdentifier>
     </Filter>
@@ -56,6 +53,9 @@
     </Filter>
     <Filter Include="Source\ParticleSystem\Particles">
       <UniqueIdentifier>{6369aaa5-c0ad-4c81-8596-be95d198f5a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Camera">
+      <UniqueIdentifier>{3fa6040b-afb4-4816-8e88-2922c5d9b57d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

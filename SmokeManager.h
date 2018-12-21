@@ -8,7 +8,6 @@
 class SmokeManager : public BaseParManager
 {
 private:
-
 public:
 	SmokeManager(std::string name, Camera* camObj, float parLifeSpan);
 	~SmokeManager();

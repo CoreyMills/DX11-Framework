@@ -10,7 +10,7 @@ BlurShader::~BlurShader()
 {
 }
 
-HRESULT BlurShader::InitShadersAndInputLayout(ID3D11Device* device)
+HRESULT BlurShader::InitShaderAndInputLayout(ID3D11Device* device)
 {
 	HRESULT hr;
 
@@ -66,7 +66,7 @@ HRESULT BlurShader::InitShadersAndInputLayout(ID3D11Device* device)
 
 	// Create the input layout
 	hr = device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
-		pVSBlob->GetBufferSize(), &_vertexLayout);
+		pVSBlob->GetBufferSize(), &_inputLayout);
 	pVSBlob->Release();
 
 	if (FAILED(hr))

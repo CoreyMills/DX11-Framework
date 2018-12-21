@@ -7,8 +7,8 @@
 
 class GameObject : public BaseObject
 {
-private:
-	Mesh * _mesh;
+protected:
+	Mesh* _mesh;
 	Material* _mtrl;
 
 	DIRECTION _direction;
@@ -26,9 +26,9 @@ public:
 	void Cleanup();
 
 	void Update(float deltaTime) override;
-	void Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConstantBuffer, PhongCB &cb);
+	void Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConstantBuffer, PhongCB& cb);
 
-	void Move(float force, DIRECTION dir);
+	virtual void Move(float force, DIRECTION dir);
 
 	void SetMesh(Mesh* mesh) { _mesh = mesh; }
 	void SetMtrl(Material* material) { _mtrl = material; }

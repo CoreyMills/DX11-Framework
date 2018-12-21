@@ -13,7 +13,7 @@ public:
 
 	ID3D11VertexShader* GetVertexShader() { return _vertexShader; }
 	ID3D11PixelShader* GetPixelShader() { return _pixelShader; }
-	ID3D11InputLayout* GetVLayout() { return _vertexLayout; }
+	ID3D11InputLayout* GetInputLayout() { return _inputLayout; }
 
 	void EnableShader() { _shaderEnabled = true; }
 	void DisableShader() { _shaderEnabled = false; }
@@ -25,19 +25,15 @@ public:
 	std::vector<ID3D11RenderTargetView*> _renderTVArray;
 	std::vector<ID3D11ShaderResourceView*> _shaderRVArray;
 
-	UINT screenWidth, screenHeight;
+	UINT _screenWidth, _screenHeight;
 	int _numOfTextures;
 
 protected:
 	WCHAR* _fxFilePath;
 
-	ID3D11Texture2D* _renderTargetTexture;
-	ID3D11RenderTargetView* _renderTargetView;
-	ID3D11ShaderResourceView* _shaderResourceView;
-
 	ID3D11VertexShader* _vertexShader;
 	ID3D11PixelShader* _pixelShader;
-	ID3D11InputLayout* _vertexLayout;
+	ID3D11InputLayout* _inputLayout;
 
 	bool _shaderEnabled;
 };

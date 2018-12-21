@@ -11,7 +11,6 @@
 Texture2D txDiffuse : register(t0);
 SamplerState samLinear : register(s0);
 
-//why does moving the pos of the vars change the output in scene
 cbuffer ConstantBuffer : register( b0 )
 {
 	matrix World;

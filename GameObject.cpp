@@ -141,7 +141,7 @@ void GameObject::Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConstan
 		deviceContext->OMSetBlendState(0, 0, 0xffffffff);
 	}
 
-	cb.ambientMaterial = _mtrl->ambientMaterial;
+	cb.ambientMtrl = _mtrl->ambientMaterial;
 	cb.diffuseMtrl = _mtrl->diffuseMaterial;
 	cb.specularMtrl = _mtrl->specularMaterial;
 
@@ -160,7 +160,7 @@ void GameObject::Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConstan
 	deviceContext->VSSetConstantBuffers(0, 1, &pConstantBuffer);
 	deviceContext->PSSetConstantBuffers(0, 1, &pConstantBuffer);
 
-	deviceContext->PSSetShaderResources(0, 1, &_mtrl->textureShaderRV);
+	deviceContext->PSSetShaderResources(0, 1, &_mtrl->shaderRV);
 	deviceContext->PSSetSamplers(0, 1, &_mtrl->samplerLinear);
 	deviceContext->DrawIndexed(_mesh->indexCount, 0, 0);
 }

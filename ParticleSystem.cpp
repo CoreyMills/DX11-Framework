@@ -2,17 +2,14 @@
 
 ParticleSystem::ParticleSystem()
 {
-
 }
 
 ParticleSystem::~ParticleSystem()
 {
-
 }
 
 void ParticleSystem::Init()
 {
-
 }
 
 void ParticleSystem::Cleanup()

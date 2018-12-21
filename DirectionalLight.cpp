@@ -3,7 +3,6 @@
 DirectionalLight::DirectionalLight()
 {
 	_eyePosW = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	_originalEye = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	_lightDirection = XMFLOAT3(0.0f, 0.0f, 0.0f);
 
 	_diffuseLight = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -16,7 +15,6 @@ DirectionalLight::DirectionalLight()
 DirectionalLight::DirectionalLight(XMFLOAT3 lightDirection, XMFLOAT4 ambientLight, XMFLOAT4 diffuseLight, XMFLOAT4 specularLight, float specularPower, XMFLOAT3 eyePosW)
 {
 	this->_eyePosW = eyePosW;
-	this->_originalEye = eyePosW;
 	this->_lightDirection = lightDirection;
 
 	this->_diffuseLight = diffuseLight;

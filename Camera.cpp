@@ -14,6 +14,9 @@ Camera::Camera(BaseObject* parentObj, UINT windowWidth, UINT windowHeight, LOOK_
 Camera::~Camera()
 {
 	_parentObj = nullptr;
+
+	_convert = nullptr;
+	delete _convert;
 }
 
 void Camera::Update(float deltaTime)

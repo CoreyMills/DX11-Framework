@@ -6,7 +6,6 @@
 class SmokeParticle : public BaseParticle
 {
 private:
-
 public:
 	SmokeParticle(Camera* parentObj, float lifeSpan);
 	~SmokeParticle();
@@ -15,9 +14,6 @@ public:
 	void Cleanup();
 
 	void Update(float deltaTime) override;
-
 	void Move(float force, DIRECTION dir) override;
-
-	const float GetLifeSpan() { return _lifeSpan; }
 };
 #endif

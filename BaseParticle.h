@@ -2,22 +2,14 @@
 #define BASEPARTICLE_H
 
 #include "Structures.h"
-#include "BaseObject.h"
+#include "GameObject.h"
 #include "Camera.h"
 #include "DirectionalLight.h"
 
-class BaseParticle : public BaseObject
+class BaseParticle : public GameObject
 {
 protected:
 	Camera* _camObj;
-
-	Mesh * _mesh;
-	Material* _mtrl;
-
-	DIRECTION _direction;
-
-	float _acceleration;
-	float _maxSpeed;
 
 	float _lifeSpan;
 	float _currentCount;
@@ -29,16 +21,8 @@ public:
 	void Init();
 	void Cleanup();
 
-	void Update(float deltaTime) override;
-	void Draw(ID3D11DeviceContext* deviceContext, ID3D11Buffer* pConstantBuffer, PhongCB &cb);
-
-	virtual void Move(float force, DIRECTION dir);
-
-	void SetMesh(Mesh* mesh) { _mesh = mesh; }
-	void SetMtrl(Material* material) { _mtrl = material; }
-
-	const Mesh* GetMesh() { return _mesh; }
-	const Material* GetMtrl() { return _mtrl; }
+	virtual void Update(float deltaTime) override;
+	virtual void Move(float force, DIRECTION dir) override;
 
 	const float GetLifeSpan() { return _lifeSpan; }
 };

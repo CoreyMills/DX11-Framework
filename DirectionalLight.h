@@ -23,6 +23,5 @@ public:
 
 private:
 	Convertion* _convert;
-	XMFLOAT3 _originalEye;
 };
 #endif 

@@ -9,7 +9,7 @@ public:
 	BlurShader(WCHAR* fxFilePath);
 	~BlurShader();
 
-	HRESULT InitShadersAndInputLayout(ID3D11Device* device);
+	HRESULT InitShaderAndInputLayout(ID3D11Device* device);
 
 	BlurCB _cb;
 

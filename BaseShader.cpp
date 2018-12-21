@@ -7,12 +7,25 @@ BaseShader::BaseShader()
 
 BaseShader::~BaseShader()
 {
-	if (_fxFilePath) _fxFilePath = nullptr;
+	_fxFilePath = nullptr;
 	delete _fxFilePath;
+
+	_vertexShader = nullptr;
+	delete _vertexShader;
+
+	_pixelShader = nullptr;
+	delete _pixelShader;
+
+	_inputLayout = nullptr;
+	delete _inputLayout;
 }
 
 HRESULT BaseShader::InitRenderToTexture(ID3D11Device* device)
 {
+	ID3D11Texture2D* renderTargetTexture;
+	ID3D11RenderTargetView* renderTargetView;
+	ID3D11ShaderResourceView* shaderResourceView;
+
 	for (int i = 0; i < _numOfTextures; i++)
 	{
 		D3D11_TEXTURE2D_DESC textureDesc;
@@ -24,8 +37,8 @@ HRESULT BaseShader::InitRenderToTexture(ID3D11Device* device)
 		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 		// Setup the render target texture description.
-		textureDesc.Width = screenWidth;
-		textureDesc.Height = screenHeight;
+		textureDesc.Width = _screenWidth;
+		textureDesc.Height = _screenHeight;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -36,11 +49,9 @@ HRESULT BaseShader::InitRenderToTexture(ID3D11Device* device)
 		textureDesc.MiscFlags = 0;
 
 		//Create the render target texture
-		result = device->CreateTexture2D(&textureDesc, NULL, &_renderTargetTexture);
+		result = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTexture);
 		if (FAILED(result))
-		{
-			return false;
-		}
+			return result;
 
 		//Setup the description of the render target view
 		renderTargetViewDesc.Format = textureDesc.Format;
@@ -48,11 +59,9 @@ HRESULT BaseShader::InitRenderToTexture(ID3D11Device* device)
 		renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 		//Create the render target view
-		result = device->CreateRenderTargetView(_renderTargetTexture, &renderTargetViewDesc, &_renderTargetView);
+		result = device->CreateRenderTargetView(renderTargetTexture, &renderTargetViewDesc, &renderTargetView);
 		if (FAILED(result))
-		{
-			return false;
-		}
+			return result;
 
 		//Setup the description of the shader resource view
 		shaderResourceViewDesc.Format = textureDesc.Format;
@@ -61,14 +70,17 @@ HRESULT BaseShader::InitRenderToTexture(ID3D11Device* device)
 		shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 		// Create the shader resource view
-		result = device->CreateShaderResourceView(_renderTargetTexture, &shaderResourceViewDesc, &_shaderResourceView);
+		result = device->CreateShaderResourceView(renderTargetTexture, &shaderResourceViewDesc, &shaderResourceView);
 		if (FAILED(result))
-		{
-			return false;
-		}
+			return result;
 
-		_renderTTArray.push_back(_renderTargetTexture);
-		_renderTVArray.push_back(_renderTargetView);
-		_shaderRVArray.push_back(_shaderResourceView);
+		_renderTTArray.push_back(renderTargetTexture);
+		_renderTVArray.push_back(renderTargetView);
+		_shaderRVArray.push_back(shaderResourceView);
+
+		renderTargetTexture = nullptr;
+		renderTargetView = nullptr;
+		shaderResourceView = nullptr;
 	}
+	return S_OK;
 }

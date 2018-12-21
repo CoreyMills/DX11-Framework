@@ -399,7 +399,7 @@ void ResourceManager::CreateIndices(const std::vector<XMFLOAT3>& inVertices, con
 	{
 		SimpleVertex vertex = { inVertices[i], inNormals[i],  inTexCoords[i] };
 
-		unsigned short index;
+		unsigned short index; 
 		// See if a vertex already exists in the buffer that has the same attributes as this one
 		bool found = FindSimilarVertex(vertex, vertToIndexMap, index);
 

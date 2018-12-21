@@ -18,7 +18,6 @@ void SmokeParticle::Init(Camera* camObj, float lifeSpan)
 
 void SmokeParticle::Cleanup()
 {
-
 }
 
 void SmokeParticle::Update(float deltaTime)
