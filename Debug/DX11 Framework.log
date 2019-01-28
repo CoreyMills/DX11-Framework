@@ -1,7 +1,1 @@
-﻿  Application.cpp
-d:\visual studio\fggc\dx11 framework\application.cpp(1146): warning C4316: 'PhongShader': object allocated on the heap may not be aligned 16
-d:\visual studio\fggc\dx11 framework\application.cpp(1426): warning C4238: nonstandard extension used: class rvalue used as lvalue
-d:\visual studio\fggc\dx11 framework\application.cpp(1427): warning C4238: nonstandard extension used: class rvalue used as lvalue
-d:\visual studio\fggc\dx11 framework\application.cpp(1513): warning C4238: nonstandard extension used: class rvalue used as lvalue
-d:\visual studio\fggc\dx11 framework\application.cpp(1514): warning C4238: nonstandard extension used: class rvalue used as lvalue
-  DX11 Framework.vcxproj -> D:\Visual Studio\FGGC\DX11 Framework\Debug\DX11 Framework.exe
+﻿
